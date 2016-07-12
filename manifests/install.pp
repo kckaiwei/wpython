@@ -2,6 +2,7 @@ class wpython::install inherits wpython {
 
   $version          = $wpython::version
   $downloaddirectry = $wpython::downloaddirectory
+  $uninstall        = $wpython::uninstall
   
   #version comparison function used, returns 1 if first # larger, 0 if equal, -1 if first # smaller
   #takes strings
@@ -12,6 +13,7 @@ class wpython::install inherits wpython {
       ensure => directory,
     }
   
+    #package resource for windows exes only support file system URIs, hence need to store a copy
     file {'pythondownload':
       path   => "${downloaddirectory}/python-${version}.exe",
       source => "https://www.python.org/ftp/python/${version}/python-${version}.exe",
@@ -19,7 +21,7 @@ class wpython::install inherits wpython {
     }
 
     #/i & /qn flags are automatically included.
-    #installs 3.0+
+    #installs 3.5+, it matters since python now uses .exe instead of .msi
     package {'python35':
       ensure          => installed,
       source          => "C:/pythonfiles/python-${version}.exe",
@@ -32,25 +34,47 @@ class wpython::install inherits wpython {
   #Yes, that is how it's spelled
   elsif versioncmp('3.0', $version) <=0{
   
-    #installs 3.0+
-    package {'python30':
-      ensure          => installed,
-      source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
-      provider        => windows,
-      install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
-      }
-  
+    if $uninstall != true {
+    
+      #installs 3.0+
+      package {'python30':
+        ensure          => installed,
+        source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
+        provider        => windows,
+        install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+        }
+    }
+    
+    else {
+    
+      package {'python30':
+        ensure          => absent,
+        source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
+        provider        => windows,
+        install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+        }
+    }
   }
   
   else {
     
-    #install 2.7
-    package {'python27':
-      ensure          => installed,
-      source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
-      provider        => windows,
-      install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+    if $uninstall != true {
+      #install 2.7
+      package {'python27':
+        ensure          => installed,
+        source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
+        provider        => windows,
+        install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+        }
       }
+    else {
+      package {'python27':
+        ensure          => absent,
+        source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
+        provider        => windows,
+        install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+        }
+    }
   }
 
 }
