@@ -2,7 +2,7 @@ class wpython::install inherits wpython {
 
   $version = $wpython::version
 
-  if $version >= '3.5'{
+  if $version >= 3.5{
 
     #/i & /qn flags are automatically included.
     #installs 3.0+
@@ -15,7 +15,7 @@ class wpython::install inherits wpython {
     
   }
   
-  elseif $version >= '3.0'{
+  elsif $version >= 3.0{
   
     #installs 3.0+
     package {'python30':
