@@ -12,7 +12,7 @@ class wpython::install inherits wpython {
     }
   
     file {'pythondownload':
-      path   => 'C:/pythonfiles',
+      path   => 'C:/pythonfiles/',
       source => "https://www.python.org/ftp/python/${version}/python-${version}.exe",
       ensure => present,
     }
