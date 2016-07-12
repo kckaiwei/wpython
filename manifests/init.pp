@@ -1,32 +1,32 @@
 # Class: wpython
 # ===========================
 #
-# ilorest is a module that installs the Python ilorest library, and launches a few examples
-# from the library using parameters passed to the node.
+# wpython installs Python for Windows
 #
 # Parameters
 # ----------
-# * `ilo_ip`
-# This parameter is the IP address of the target server. It defaults to "10.0.0.100"
-# It is required for the examples to execute properly.
+# * `version`
+# Designate the version of Python you wish to install. Note that revision number should be 0, if there is no revision.
+# i.e. 3.4.0 is the correct way, as opposed to 3.4
+# Defaults to 2.7.12
 #
-# * `ilo_username`
-# This parameter is the iLO username for the target server. It defaults to "username"
-# It is required for the examples to execute properly.
+# * `downloaddirectory`
+# Designate a directory to download Python installation files to
+# This is only required for version of python installed using .exe
+# Defaults to C:\pythonfiles (a directory will be created if path does not exist)
 #
-# * `ilo_password`
-# This parameter is the iLO password for the target server. It defaults to "password"
-# It is required for the examples to execute properly.
+# * `uninstall`
+# Set to true, or false. It tells the module whether you are looking to uninstall or install python.
+# Defaults to false (installation mode)
 #
 # Examples
 # --------
 #
 # @example
-# class { "hprest":
-#   ilo_ip         => '10.0.0.100',
-#   ilo_username   => 'admin',
-#   ilo_password   => 'password',
-#   hprest_command => '&& hprest types',
+# class { "wpython":
+#   version           => '2.7.12',
+#   downloaddirectory => 'C:\downloads',
+#   uninstall         => 'false',
 # }
 #
 # Authors
