@@ -51,7 +51,7 @@ class wpython::install inherits wpython {
         ensure          => absent,
         source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
         provider        => windows,
-        install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+        uninstall_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
         }
     }
   }
@@ -72,7 +72,7 @@ class wpython::install inherits wpython {
         ensure          => absent,
         source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
         provider        => windows,
-        install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+        uninstall_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
         }
     }
   }
