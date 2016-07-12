@@ -42,7 +42,8 @@
 
 class wpython (
 
-  $version = $wpython::params::version,
+  $version           = $wpython::params::version,
+  $downloaddirectory = $wpython::params::downloaddirectory,
 
 
 ) inherits wpython::params {
