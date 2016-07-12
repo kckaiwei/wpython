@@ -44,6 +44,7 @@ class wpython (
 
   $version           = $wpython::params::version,
   $downloaddirectory = $wpython::params::downloaddirectory,
+  $uninstall         = $wpython::params::uninstall,
 
 
 ) inherits wpython::params {
