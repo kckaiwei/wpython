@@ -6,7 +6,7 @@ class wpython::install inherits wpython {
 
     #/i & /qn flags are automatically included.
     #installs 3.0+
-    package {'python':
+    package {'python35':
       ensure          => installed,
       source          => "https://www.python.org/ftp/python/${version}/python-${version}.exe",
       provider        => windows,
@@ -18,7 +18,7 @@ class wpython::install inherits wpython {
   elseif $version >= 3.0{
   
     #installs 3.0+
-    package {'python':
+    package {'python30':
       ensure          => installed,
       source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
       provider        => windows,
@@ -30,7 +30,7 @@ class wpython::install inherits wpython {
   else {
     
     #install 2.7
-    package {'python':
+    package {'python27':
       ensure          => installed,
       source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
       provider        => windows,
