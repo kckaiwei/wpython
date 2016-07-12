@@ -8,7 +8,7 @@ class wpython::install inherits wpython {
   if versioncmp('3.5', $version) <= 0{
   
     file {'pythondirectory':
-      path   => "${downloaddirectory},
+      path   => "${downloaddirectory}",
       ensure => directory,
     }
   
