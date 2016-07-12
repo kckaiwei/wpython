@@ -47,7 +47,7 @@ class wpython::install inherits wpython {
     
     else {
     
-      package {'python30':
+      package {"Python ${version}":
         ensure          => absent,
         source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
         provider        => windows,
@@ -68,7 +68,7 @@ class wpython::install inherits wpython {
         }
       }
     else {
-      package {'python27':
+      package {"Python ${version}":
         ensure          => purge,
         source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
         provider        => windows,
