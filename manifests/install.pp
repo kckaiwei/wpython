@@ -22,9 +22,9 @@ class wpython::install inherits wpython {
     #installs 3.0+
     package {'python35':
       ensure          => installed,
-      source          => "C:/pythonfiles/python-${version}.exe /quiet",
+      source          => "C:/pythonfiles/python-${version}.exe",
       provider        => windows,
-      install_options => [{ 'InstallAllUsers' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+      install_options => ['/quiet', { 'InstallAllUsers' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
       }
     
   }
