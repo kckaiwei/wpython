@@ -2,7 +2,8 @@ class wpython::install inherits wpython {
 
   $version = $wpython::version
 
-  if $version >= 3.5{
+  #puppet converts string to numbers automatically when arithmetic operators are called
+  if $version + 0 >= 3.5{
 
     #/i & /qn flags are automatically included.
     #installs 3.0+
@@ -16,7 +17,7 @@ class wpython::install inherits wpython {
   }
   
   #Yes, that is how it's spelled
-  elsif $version >= 3.0{
+  elsif $version + 0 >= 3.0{
   
     #installs 3.0+
     package {'python30':
