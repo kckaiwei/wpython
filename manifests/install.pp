@@ -1,7 +1,6 @@
 class wpython::install inherits wpython {
 
   $version   = $wpython::version
-  $directory = $wpython::directory
 
   if $version >= 3.5{
 
