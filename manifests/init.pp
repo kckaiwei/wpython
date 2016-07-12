@@ -40,14 +40,13 @@
 # Copyright 2016 Your name here, unless otherwise noted.
 #
 
-class hprest (
+class wpython (
 
-  $ilo_username = $hprest::params::ilo_username,
-  $ilo_password = $hprest::params::ilo_password,
-  $ilo_ip       = $hprest::params::ilo_ip,
+  $version = $wpython::params::version,
 
-) inherits hprest::params {
 
-  include hprest::install
-  include hprest::service
+) inherits wpython::params {
+
+  include wpython::install
+  
 }
