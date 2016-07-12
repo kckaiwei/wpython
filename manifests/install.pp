@@ -12,7 +12,7 @@ class wpython::install inherits wpython {
       ensure          => installed,
       source          => "https://www.python.org/ftp/python/${version}/python-${version}.exe",
       provider        => windows,
-      install_options => [{ 'ALLUSERS'=>'1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+      install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
       }
     
   }
