@@ -37,7 +37,7 @@ class wpython::install inherits wpython {
         ensure          => absent,
         source          => "C:/pythonfiles/python-${version}.exe",
         provider        => windows,
-        uninstall_options => ['/uninstall'],
+        uninstall_options => ['/uninstall', '/quiet'],
         }
     }
     
