@@ -5,12 +5,7 @@ class wpython::install inherits wpython {
   #version comparison function used, returns 1 if first # larger, 0 if equal, -1 if first # smaller
   #takes strings
   if versioncmp('3.5', $version) <= 0{
-  
-    file {'pythondirectory':
-      ensure => directory,
-      path   => 'C:/pythonfiles',
-    }
-  
+
     file {'pythondownload':
       path   => 'C:/pythonfiles/',
       source => "https://www.python.org/ftp/python/${version}/python-${version}.exe",
