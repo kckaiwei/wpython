@@ -7,6 +7,8 @@ class wpython::install inherits wpython {
   #version comparison function used, returns 1 if first # larger, 0 if equal, -1 if first # smaller
   #takes strings
   if versioncmp('3.5', $version) <= 0{
+    
+    if $uninstall != true {
   
     file {'pythondirectory':
       path   => "${downloaddirectory}",
@@ -28,6 +30,16 @@ class wpython::install inherits wpython {
       provider        => windows,
       install_options => ['/quiet', { 'InstallAllUsers' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
       }
+    }
+    
+    else {
+      package {"Python ${version} (32-bit)":
+        ensure          => absent,
+        source          => "C:/pythonfiles/python-${version}.exe",
+        provider        => windows,
+        uninstall_options => ['/uninstall'],
+        }
+    }
     
   }
   
