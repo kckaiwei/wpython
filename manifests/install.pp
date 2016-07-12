@@ -3,7 +3,8 @@ class wpython::install inherits wpython {
   $version = $wpython::version
 
   #version comparison function used, returns 1 if first # larger, 0 if equal, -1 if first # smaller
-  if versioncmp(3.5, $version) <= 0{
+  #takes strings
+  if versioncmp('3.5', $version) <= 0{
 
     #/i & /qn flags are automatically included.
     #installs 3.0+
@@ -17,7 +18,7 @@ class wpython::install inherits wpython {
   }
   
   #Yes, that is how it's spelled
-  elsif versioncmp(3.0, $version) <=0{
+  elsif versioncmp('3.0', $version) <=0{
   
     #installs 3.0+
     package {'python30':
