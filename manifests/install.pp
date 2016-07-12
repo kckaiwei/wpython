@@ -1,8 +1,8 @@
 class wpython::install inherits wpython {
 
-  $version   = $wpython::version
+  $version = $wpython::version
 
-  if $version >= 3.5{
+  if $version >= '3.5'{
 
     #/i & /qn flags are automatically included.
     #installs 3.0+
@@ -15,7 +15,7 @@ class wpython::install inherits wpython {
     
   }
   
-  elseif $version >= 3.0{
+  elseif $version >= '3.0'{
   
     #installs 3.0+
     package {'python30':
@@ -35,7 +35,7 @@ class wpython::install inherits wpython {
       source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
       provider        => windows,
       install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
-      }  
+      }
   }
 
 }
