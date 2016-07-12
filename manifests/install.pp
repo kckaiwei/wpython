@@ -15,6 +15,7 @@ class wpython::install inherits wpython {
     
   }
   
+  #Yes, that is how it's spelled
   elsif $version >= 3.0{
   
     #installs 3.0+
