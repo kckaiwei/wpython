@@ -7,9 +7,9 @@ class wpython::install inherits wpython {
   if versioncmp('3.5', $version) <= 0{
 
     file {'pythondownload':
-      path   => 'C:/pythonfiles/',
+      path   => 'C:/pythonfiles',
       source => "https://www.python.org/ftp/python/${version}/python-${version}.exe",
-      ensure => present,
+      ensure => directory,
     }
 
     #/i & /qn flags are automatically included.
