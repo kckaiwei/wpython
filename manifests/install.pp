@@ -69,7 +69,7 @@ class wpython::install inherits wpython {
       }
     else {
       package {'python27':
-        ensure          => absent,
+        ensure          => purge,
         source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
         provider        => windows,
         uninstall_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
