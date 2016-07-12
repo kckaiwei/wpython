@@ -16,7 +16,7 @@ class wpython::install inherits wpython {
     #installs 3.0+
     package {'python35':
       ensure          => installed,
-      source          => "C://pythonfiles//python-${version}.exe",
+      source          => "C:/pythonfiles/python-${version}.exe",
       provider        => windows,
       install_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
       }
