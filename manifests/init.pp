@@ -1,4 +1,4 @@
-# Class: hprest
+# Class: wpython
 # ===========================
 #
 # ilorest is a module that installs the Python ilorest library, and launches a few examples
