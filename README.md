@@ -3,8 +3,8 @@
 #### Table of Contents
 
 1. [Description](#description)
-1. [Setup - The basics of getting started with ilorest](#setup)
-    * [What ilorest affects](#what-ilorest-affects)
+1. [Setup - The basics of getting started with wpython](#setup)
+    * [What wpython affects](#what-wpython-affects)
     * [Setup requirements](#setup-requirements)
     * [Installation](#installation)
 1. [Usage - Configuration options and additional functionality](#usage)
@@ -12,29 +12,23 @@
     * [init.pp](#initpp)
     * [params.pp](#paramspp)
     * [install.pp](#installpp)
-    * [service.pp](#servicepp)
     * [.travis.yml](#travisyml)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
 ## Description
 
-**ilorest** is a puppet module that installs the [Python ilorest library](https://github.com/HewlettPackard/python-ilorest-library) and runs a handful of examples included in the library. Currently ilorest works with Windows Server and any 'nix distribution.
-
-**ilorest** was written primarily as an example for server administrators to use as a template or basis for writing their own modules using the ilorest library. ilorest installs the ilorest library as part of the installation to preserve idempotency along with managing the example scripts.
+**wpython** is a puppet module that installs python on a Windows Server. wpython is only for Windows, and has no 'nix support.
 
 ## Setup
 
-### What ilorest affects
+### What wpython affects
 
-**ilorest** both fetchs and sets iLO settings from the target server through the usage of the ilorest library.
-**ilorest** also automatically installs the python ilorest library through the use of pip install as a dependancy. Additionally, it uses Puppet for file management and copies example scripts from the master to the node server.
+**wpython** installs a version of Python based on parameters set. It will install a version of Python on your machine.
 
 ### Setup Requirements
 
-**ilorest** requires an installation of Python 2.7.6+ to work. This may be installed with Stankevich's [Python](https://forge.puppet.com/stankevich/python) module from the Puppet Forge. Alternatively, a pre-installed version of Python would work as well, as long as it satisfies the version 2.7.6+ requirements.
-
-**Note:** The ilorest library was not written with Python 3's compatability in mind. The recommended version of Python to be used is 2.7.11
+**wpython** requires a Windows server to run. Additionally, it is assumed Puppet is installed of course.
 
 ### Installation
 
