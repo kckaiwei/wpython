@@ -33,7 +33,7 @@
 
 Use this command to install wpython:
 
-`puppet module install hpe-wpython`
+`puppet module install kckaiwei-wpython`
 
 wpython is only needed to be installed on the puppetmaster server. Installation can be done through the puppet forge, or manually.
 
