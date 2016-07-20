@@ -4,9 +4,18 @@
   "author": "Kevin Chang",
   "summary": "Installs Python on Windows",
   "license": "Apache-2.0",
-  "source": "https://github.com/kckaiwei/wpython",
+  "source": "git://github.com/kckaiwei/wpython.git",
   "project_page": "https://github.com/kckaiwei/wpython",
   "issues_url": "https://github.com/kckaiwei/wpython/issues",
+  "decription": "Simple Puppet module of Python on Windows",
+  "tags": [
+    "python",
+    "pip",
+    "windows",
+  ],
+  "operatingsystem_support": [
+    {"operatingsystem": 'windows',
+    ],
   "dependencies": [
     {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
   ],
