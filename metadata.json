@@ -1,6 +1,6 @@
 {
   "name": "kckaiwei-wpython",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Kevin Chang",
   "summary": "Installs Python on Windows",
   "license": "Apache-2.0",
