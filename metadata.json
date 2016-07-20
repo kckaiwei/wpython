@@ -13,8 +13,7 @@
     "pip",
     "windows"],
   "operatingsystem_support": [
-    {"operatingsystem": "Windows",
-    "operatingsystemrelease": "2012"
+    {"operatingsystem": "Windows"
    }
   ],
   "dependencies": [
