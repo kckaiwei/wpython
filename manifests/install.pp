@@ -34,9 +34,9 @@ class wpython::install inherits wpython {
     
     else {
       package {"Python ${version} (32-bit)":
-        ensure          => absent,
-        source          => "C:/pythonfiles/python-${version}.exe",
-        provider        => windows,
+        ensure            => absent,
+        source            => "C:/pythonfiles/python-${version}.exe",
+        provider          => windows,
         uninstall_options => ['/uninstall', '/quiet'],
         }
     }
@@ -60,9 +60,9 @@ class wpython::install inherits wpython {
     else {
     
       package {"Python ${version}":
-        ensure          => absent,
-        source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
-        provider        => windows,
+        ensure            => absent,
+        source            => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
+        provider          => windows,
         uninstall_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
         }
     }
@@ -81,9 +81,9 @@ class wpython::install inherits wpython {
       }
     else {
       package {"Python ${version}":
-        ensure          => absent,
-        source          => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
-        provider        => windows,
+        ensure            => absent,
+        source            => "https://www.python.org/ftp/python/${version}/python-${version}.msi",
+        provider          => windows,
         uninstall_options => [{ 'ALLUSERS' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
         }
     }
