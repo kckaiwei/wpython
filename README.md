@@ -12,50 +12,50 @@
     * [init.pp](#initpp)
     * [params.pp](#paramspp)
     * [install.pp](#installpp)
-    * [.travis.yml](#travisyml)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Development - Guide for contributing to the module](#development)
 
 ## Description
 
-**wpython** is a puppet module that installs python on a Windows Server. wpython is only for Windows, and has no 'nix support.
+**wpython** is a puppet module that installs a version of Python onto a Window server. wpython supports version selection as well as uninstalltion.
 
 ## Setup
 
 ### What wpython affects
 
-**wpython** installs a version of Python based on parameters set. It will install a version of Python on your machine.
+**wpython** uses the package resource to install and manage Python on a Windows server. Additionally, it may create a directory to hold Python installation files.
 
 ### Setup Requirements
 
-**wpython** requires a Windows server to run. Additionally, it is assumed Puppet is installed of course.
+**wpython** has no dependencies. wpython will work with Puppet straight out of the box.
 
 ### Installation
 
-Use this command to install ilorest:
+Use this command to install wpython:
 
-`puppet module install hpe-ilorest`
+`puppet module install hpe-wpython`
 
-On the node servers, by default, in debian distributions, the ilorest module will install files into the ilorest module path. (/etc/puppetlabs/code/environments/production/modules/ilorest). In Windows, it will install into the C: drive. (C:\ilorest). In RedHat, it installs into Puppet's module path (/etc/puppet/modules/ilorest)
+wpython is only needed to be installed on the puppetmaster server. Installation can be done through the puppet forge, or manually.
 
-On master servers, the module installation is handled through Puppet.
+For a manual installtion, download this module as a zip, and unzip it in your modules folder. The wpython module directory should be simply named "wpython", so the node definition will recognize the module as wpython.
 
-For a manual installtion, download this module as a zip, and unzip it in your modules folder. The ilorest module directory should be simply named "ilorest", so the node definition will recognize the module as ilorest.
-
-**Note:** If installing manually, or from this repository, ensure the folder is named "ilorest" so Puppet can locate the module.
+**Note:** If installing manually, or from this repository, ensure the folder is named "wpython" so Puppet can locate the module.
 
 ## Usage
 
-**ilorest** is used by setting your parameters in the site.pp node definitions. Here is an example of it in use as a default node definition. ilorest is hardcoded to show off a few examples, namely examples 9, 14, and 3. Since the intent of ilorest is to provide user with a template on how to build their own modules, the examples are hardcoded in. These examples are from the python ilorest library and are intended to be just examples. Server admins should look into building their own scripts to meet their needs and then refer to this module for implementation using Puppet.
+**wpython** is used by setting variables into your node definition. wpython can be declared as a class, or simply included. Provided is an example of each use case.
 
 ```puppet
   node default {
-    include python
-    class { 'ilorest':
-      ilo_ip       => '10.0.0.100',
-      ilo_username => 'admin',
-      ilo_password => 'password',
+    class { 'wpython':
+      version           => '2.7.11',
+      downloaddirectory => 'C:\downloads',
+      uninstall         => false,
     }
+  }
+  
+  node default {
+    include wpython
   }
 ```
 
@@ -63,36 +63,38 @@ For a manual installtion, download this module as a zip, and unzip it in your mo
 
 #### init.pp
 
-init.pp is the base class. It inherits default parameters from params.pp, and calls install.pp and service.pp
+init.pp is the base class. It inherits default parameters from params.pp, and calls install.pp
 
 ```puppet
-  $ilo_username = $ilorest::params::ilo_username,
-  $ilo_password = $ilorest::params::ilo_password,
-  $ilo_ip       = $ilorest::params::ilo_ip,
+  $version          = $wpython::version
+  $downloaddirectry = $wpython::downloaddirectory
+  $uninstall        = $wpython::uninstall
 ```
-Variables are declared here based on their values in the params.pp file. This provides a default value to be used if no value is set, e.g. using `include ilorest` in the node definition, as opposed to adding the module as a class.
+Variables are declared here based on their values in the params.pp file. This provides a default value to be used if no value is set, e.g. using `include wpython` in the node definition, as opposed to adding the module as a class.
 
 ### params.pp
 
 params.pp stores the parameters defaults. The defaults are used if no parameters are supplied to init.pp unless the node definition overrides it.
 
 ```puppet
-  $ilo_username = "username"
-  $ilo_password = "password"
-  $ilo_ip       = "10.0.0.100"
+  $version           = "2.7.12"
+  $downloaddirectory = "C:/pythonfiles"
+  $uninstall         = false
 ```
 Default parameters are listed here. These are hardcoded and can be changed if you want to have a different default value when setting your own node definitions.
 
 ### install.pp
 
-install.pp installs any required dependencies before anything else is done. This installs the python ilorest library through pip install as well as ensuring the examples to be run are present on the node.
+install.pp is the class that handles the installs and uninstalls
 
 ```puppet
-if $osfamily == 'Debian' {
-if $osfamily == 'RedHat' {
-if $osfamily == 'windows' {
+if versioncmp('3.5', $version) <= 0{
+elsif versioncmp('3.0', $version) <=0{
+else {
 ```
-The **$osfamily** fact is used as a conditional to determine what file structure will have to be used. This is automatically obtained by puppet.
+We take the version number passed by the node definition to determine what resources need to be applied. Python executables change from .msi to .exe and the resource, 'package', cannot do the same actions for both of them, hence we break up the class based on version number.
+
+versioncmp is a Puppet function that compares version numbers passed as strings. It compares the first to the second, and depending on if it is larger, equal or less, it will return a 1, 0 or -1 respectively. 
 
 ```puppet
     file { '/etc/puppetlabs/code/environments/production/modules/ilorest/':
@@ -109,64 +111,14 @@ The **$osfamily** fact is used as a conditional to determine what file structure
 ```
 File directories are created and files copied over, then managed by the master server to ensure that each node will have the required files. Note that the folder containing ilorest must already exist. Since Puppet is installed, this folder should already exist. If not, the directory path must be adjusted or the directory created.
 
-### service.pp
-
-service.pp runs the examples with variables passed from init.pp.
-
-```puppet
-  $ilo_ip       = $ilorest::ilo_ip
-  $ilo_username = $ilorest::ilo_username
-  $ilo_password = $ilorest::ilo_password
-```
-
-service.pp takes variables from init.pp since it is the top-level $ilorest. This way we can ensure it is taking the variables passed when a class is declared in the node definition.
-
-Again, there is a check for operating system with a conditional to ensure that directory structure is correct.
-
-```puppet
-  if $osfamily == 'Debian' {
-```
-
-We set a template for future exec commands by declaring all the parameters first in Exec[]. We ensure that python can be run by point to the path, incase environmental variables were not set. Additionally, the cwd points to the directory we just copied the ilorest files to. Setting require forces the required command to be run first before this can be executed. In this case, we can requiring the dependancies to be present before attempting to execute the examples.
-
-```puppet
-  Exec {
-    path      => '/usr/bin',
-    cwd       => '/etc/puppetlabs/code/environments/production/modules/ilorest/files',
-    logoutput => true,
-    loglevel  => notice,
-    require   => File['/etc/puppetlabs/code/environments/production/modules/ilorest/files'],
-	}
-```
-
-Lastly, we run the examples by calling them. We **must** use double quotes in this command line to allow the usage of variables. They are written in ${variablename} format. The **->** is an ordering arrow, telling Puppet what order to execute commands. By default, Puppet will run in the order the resources are declared, but it is still best practice to declare an order.
-
-```puppet
-  exec { 'ex09':
-    command   => "python ex09_find_ilo_mac_address.py ${ilo_ip} ${ilo_username} ${ilo_password}",
-	} ->
-```
-###.travis.yml
-
-.travis.yml is used for Travis CI, a continuous integration service being used to check build status. This file is not required to run the module at all, and is simply used for Travis CI. When adapting this module to your needs, you may want to adapt .travis.yml as well. 
-
-Note that the rvm, must be able to support rake. Additionally, one can set the Puppet version to build for specific puppet version. Ensure that the Gem for that version can be found, or the build will fail. See [https://rubygems.org/gems/puppet/versions](https://rubygems.org/gems/puppet/versions).
 
 ## Limitations
 
-**ilorest** works with any 'nix distribution, as well as any Windows Server. For the examples to work, the machine targeted by the IP address must have iLO for ilorest to work properly. Additionally, ilorest is written to support Python 2.7.6+, and it has not been fully tested with Python 3+. ilorest also requires facter, which is included with Puppet agent 1.2.3 and up (Puppet 4.2).
+**wpython** only provides support for Windows, seeing how there are already modules to install Python for 'nix distributions out there. wpython covers all released versions of Python as of this writing.
 
-Additionally, ilorest is written primarily as an example and would not be fit for being used in production out of the box. It's main purpose is to show off how the ilorest library can be deployed through Puppet. Tailoring this module to accomplish specific tasks would be the best usage of **ilorest**.
-
-**Note:** Puppet agent runs by default as `root`, but can also be run as a non-root user, as long as it is started by that user. ilorest was written with the assumption that the agent would be running as root. In Windows, Puppet agent runs by default as `LocalSystem`. Additionally, when a user is selected, the Puppet installer will add it to the `Administrators` group.
-
-**ilorest** has been tested on:
+**wpython** has been tested on:
 * Puppet 4.4
 * Puppet Enterprise 2016.2
-
-**Puppet References** 
-* ['nix agent](https://docs.puppet.com/puppet/4.5/reference/services_agent_unix.html)
-* [Windows agent](https://docs.puppet.com/puppet/4.5/reference/services_agent_windows.html)
 
 ## Development
 
@@ -181,12 +133,14 @@ Additionally, ilorest is written primarily as an example and would not be fit fo
 Version 1.0
 
 1. Initial Release
-  * Support for 'nix and Windows
-  * Accepts credentials
-
-For further information on the python ilorest library, visit this [link](https://github.com/HewlettPackard/python-ilorest-library).
+  * Supports all Python versions as of 7/12/2016
+  * Supports Windows Server 2012
 
 Tested on:
-* Ubuntu 16.04 (Xenial Xerus)
-* Red Hat Enterprise Linux 7.2 (Maipo)
 * Windows Server 2012
+
+Python versions tested:
+* 2.7.12
+* 3.4.0
+* 3.5.1
+* 3.5.2

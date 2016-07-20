@@ -22,17 +22,19 @@
 # Examples
 # --------
 #
-# @example
+# @example1
 # class { "wpython":
 #   version           => '2.7.12',
 #   downloaddirectory => 'C:\downloads',
 #   uninstall         => 'false',
 # }
+# @example2
+# include wpython
 #
 # Authors
 # -------
 #
-# Author Name <author@domain.com>
+# Kevin Chang <kevin.chang@hpe.com>
 #
 # Copyright
 # ---------
