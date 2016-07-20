@@ -11,8 +11,7 @@
   "tags": [
     "python",
     "pip",
-    "windows",
-  ],
+    "windows"],
   "operatingsystem_support": [
     {"operatingsystem": 'windows',
     "operatingsystemrelease":[ "2012" ],
