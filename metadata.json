@@ -14,7 +14,7 @@
     "windows"],
   "operatingsystem_support": [
     {"operatingsystem": "Windows",
-    "operatingsystemrelease":["2012"],
+    "operatingsystemrelease": "2012"
    }
   ],
   "dependencies": [
