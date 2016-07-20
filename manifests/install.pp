@@ -11,15 +11,15 @@ class wpython::install inherits wpython {
     if $uninstall != true {
   
     file {'pythondirectory':
+      ensure => directory,    
       path   => "${downloaddirectory}",
-      ensure => directory,
     }
   
     #package resource for windows exes only support file system URIs, hence need to store a copy
     file {'pythondownload':
+      ensure => present,
       path   => "${downloaddirectory}/python-${version}.exe",
       source => "https://www.python.org/ftp/python/${version}/python-${version}.exe",
-      ensure => present,
     }
 
     #/i & /qn flags are automatically included.
