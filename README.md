@@ -37,7 +37,7 @@ Use this command to install wpython:
 
 wpython is only needed to be installed on the puppetmaster server. Installation can be done through the puppet forge, or manually.
 
-For a manual installtion, download this module as a zip, and unzip it in your modules folder. The wpython module directory should be simply named "wpython", so the node definition will recognize the module as wpython.
+For a manual installation, download this module as a zip, and unzip it in your modules folder. The wpython module directory should be simply named "wpython", so the node definition will recognize the module as wpython.
 
 **Note:** If installing manually, or from this repository, ensure the folder is named "wpython" so Puppet can locate the module.
 
