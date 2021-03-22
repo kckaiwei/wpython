@@ -26,16 +26,16 @@ class wpython::install inherits wpython {
     #installs 3.5+, it matters since python now uses .exe instead of .msi
     package {'python35':
       ensure          => installed,
-      source          => "C:/pythonfiles/python-${version}.exe",
+      source          => "${downloaddirectory}/python-${version}.exe",
       provider        => windows,
-      install_options => ['/quiet', { 'InstallAllUsers' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, ],
+      install_options => ['/quiet', { 'InstallAllUsers' => '1' }, { 'IACCEPTSQLNCLILICENSETERMS' => 'YES' }, { 'PrependPath' => '1' }, ],
       }
     }
     
     else {
       package {"Python ${version} (32-bit)":
         ensure            => absent,
-        source            => "C:/pythonfiles/python-${version}.exe",
+        source            => "${downloaddirectory}/python-${version}.exe",
         provider          => windows,
         uninstall_options => ['/uninstall', '/quiet'],
         }
